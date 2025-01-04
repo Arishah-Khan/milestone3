@@ -1,3 +1,4 @@
+import { BASE_API_URL } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,20 +11,22 @@ interface Product {
     oldPrice: number;
   };
   image: string;
-  rating: number; // Rating out of 5
+  rating: number;
 }
 
 export default async function Home() {
   try {
-    const res = await fetch("http://localhost:3000/api/product", {
-      cache: "no-store",
-    });
+    const res = await fetch(`${BASE_API_URL}/api/product`);
 
     if (!res.ok) {
       throw new Error(`Failed to fetch: ${res.statusText}`);
     }
 
     const products: Product[] = await res.json();
+
+    if(!BASE_API_URL){
+      return null;
+    }
 
     return (
       <div className="min-h-screen bg-[#f8f8f8] py-12 px-4">

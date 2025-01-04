@@ -1,3 +1,4 @@
+import { BASE_API_URL } from "@/lib/constants";
 import Image from "next/image";
 import React from "react";
 
@@ -17,7 +18,7 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } =await params;
 
   try {
-    const res = await fetch(`http://localhost:3000/api/product/${id}`);
+    const res = await fetch(`${BASE_API_URL}/api/product/${id}`);
 
     if (!res.ok) {
       throw new Error("Failed to fetch product data");
@@ -25,6 +26,10 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
 
     const result = await res.json();
     const product: Product = result.data;
+
+    if(!BASE_API_URL){
+      return null;
+    }
 
     return (
       <div className="max-w-3xl mx-auto p-6">
