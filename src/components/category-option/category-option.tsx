@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BASE_API_URL } from "@/lib/constants";
 
 interface Product {
   slug: string;
@@ -39,7 +38,7 @@ export default function CategoryPage() {
   useEffect(() => {
     async function loadProducts() {
       try {
-        const response = await fetch(`${BASE_API_URL}/api/category`); // API endpoint
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/category`); // API endpoint
 
         if (!response.ok) {
           throw new Error("Failed to fetch products");
@@ -67,9 +66,6 @@ export default function CategoryPage() {
     }
   };
 
-  if(!BASE_API_URL){
-    return null;
-  }
 
   return (
     <>

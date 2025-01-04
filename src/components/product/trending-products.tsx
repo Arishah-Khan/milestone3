@@ -1,4 +1,3 @@
-import { BASE_API_URL } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,7 +15,7 @@ interface Product {
 
 export default async function Home() {
   try {
-    const res = await fetch(`${BASE_API_URL}/api/product`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/product`);
 
     if (!res.ok) {
       throw new Error(`Failed to fetch: ${res.statusText}`);
@@ -24,9 +23,6 @@ export default async function Home() {
 
     const products: Product[] = await res.json();
 
-    if(!BASE_API_URL){
-      return null;
-    }
 
     return (
       <div className="min-h-screen bg-[#f8f8f8] py-12 px-4">

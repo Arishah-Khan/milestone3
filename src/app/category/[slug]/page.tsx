@@ -1,4 +1,3 @@
-import { BASE_API_URL } from "@/lib/constants";
 import Image from "next/image";
 import React from "react";
 
@@ -20,7 +19,7 @@ async function Page({ params }: { params: Promise<{ slug: string }> }) {
   console.log("Fetching product data for slug:", slug);
 
   try {
-    const res = await fetch(`${BASE_API_URL}/api/category/${slug}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/category/${slug}`);
     console.log("API Response:", res);
 
     if (!res.ok) {
@@ -38,10 +37,6 @@ async function Page({ params }: { params: Promise<{ slug: string }> }) {
     console.log("Product Data:", result.data);
     
     const product: Product = result.data;
-
-    if(!BASE_API_URL){
-      return null;
-    }
 
     return (
       <>
